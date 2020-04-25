@@ -1,0 +1,33 @@
+.specs-table {
+  margin: 1rem 0;
+  color: var(--dark);
+
+  &__heading {
+    font-weight: 500;
+  }
+  table {
+    width: 100%;
+  }
+  tr {
+    height: 3rem;
+  }
+  td {
+    padding-right: 2rem;
+    padding-left: 1rem;
+
+    font-weight: 500;
+
+    border-bottom: 1px solid #eee;
+  }
+  td:first-child {
+    width: 40%;
+  }
+  td:last-child {
+    width: 60%;
+  }
+  &__row--even {
+    // background: #fbfbfb;
+  }
+  &__row--odd {
+  }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ImpressionProduct(props) {
+export default function ImpressiveProduct(props) {
   const { image, title } = props;
   return (
     <article className="impression">

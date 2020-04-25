@@ -1,0 +1,16 @@
+.categories {
+  flex-basis: 100%;
+
+  &__item {
+    padding: 1rem 0.5rem;
+    color: var(--dark);
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s;
+
+    &:hover {
+      color: white;
+      background: linear-gradient(to top, var(--success), #03ce33);
+      padding-left: 1rem;
+    }
+  }
+}

@@ -1,12 +1,21 @@
 import React from "react";
-import logo from "../assets/logo/logo.png";
+import logo from "../../assets/logo/logo.png";
+import { Link } from "react-router-dom";
+import "./HeaderAndNavBar.scss";
 
 export default function HeaderAndNavBar() {
+  let labelRef = React.createRef();
+  const toggleNav = (e) => {
+    labelRef.current.click();
+  };
+
   return (
     <header className="header">
       <div className="header__container">
         <div className="header__logo">
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <input type="checkbox" name="open-nav" id="open-nav" />
 
@@ -19,11 +28,10 @@ export default function HeaderAndNavBar() {
           <li className="header__item">contact</li>
         </ul>
 
-        <div className="header__toggle-nav">
+        <div className="header__toggle-nav" onClick={toggleNav}>
+          <label htmlFor="open-nav" ref={labelRef} />
           <span>Memu</span>
-          <label htmlFor="open-nav">
-            <i className="fas fa-bars"></i>
-          </label>
+          <i className="fas fa-bars" />
         </div>
       </div>
     </header>
