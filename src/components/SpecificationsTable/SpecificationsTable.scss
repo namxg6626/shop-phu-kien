@@ -1,10 +1,17 @@
 .specs-table {
   margin: 1rem 0;
+
+  font-size: 1rem;
   color: var(--dark);
 
   &__heading {
     font-weight: 500;
   }
+
+  span {
+    font-size: 0.8em;
+  }
+
   table {
     width: 100%;
   }
@@ -14,8 +21,6 @@
   td {
     padding-right: 2rem;
     padding-left: 1rem;
-
-    font-weight: 500;
 
     border-bottom: 1px solid #eee;
   }
@@ -29,5 +34,13 @@
     // background: #fbfbfb;
   }
   &__row--odd {
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .specs-table {
+    span {
+      font-size: 1em;
+    }
   }
 }

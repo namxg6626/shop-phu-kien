@@ -1,5 +1,7 @@
 .categories {
-  flex-basis: 100%;
+  &__heading {
+    font-weight: 500;
+  }
 
   &__item {
     padding: 1rem 0.5rem;

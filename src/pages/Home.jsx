@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Banner from "../components/Banner";
 import ImpressiveProduct from "../components/ImpressiveProduct";
 import impressionImage from "../assets/impression/impression_product.jpg";
@@ -6,7 +6,7 @@ import Product from "../components/Product";
 import Categories from "../components/Categories";
 import Paginate from "../components/Paginate";
 
-export default function Home() {
+export default function Home(props) {
   const impressions = [
     {
       image: impressionImage,
@@ -22,7 +22,7 @@ export default function Home() {
     },
   ];
 
-  const _API = "http://192.168.0.102:4000";
+  const _API = "http://localhost:4000";
   const [products, setProducts] = useState([{}]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
@@ -34,9 +34,8 @@ export default function Home() {
       setProducts(json.products);
       setMaxPage(json.maxPage);
     })();
+    return;
   }, [page]);
-
-  console.log(products);
 
   return (
     <main className="main">

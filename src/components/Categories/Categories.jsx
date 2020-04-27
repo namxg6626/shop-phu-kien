@@ -4,7 +4,7 @@ import "./Categories.scss";
 export default function Categories(props) {
   return (
     <section className="categories">
-      <h2 className="main__heading">Categories</h2>
+      <h2 className="categories__heading">Categories</h2>
       <div className="categories__item">
         <span>Tất cả dòng máy</span>
       </div>

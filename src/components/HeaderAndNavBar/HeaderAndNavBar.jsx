@@ -22,7 +22,9 @@ export default function HeaderAndNavBar() {
         <ul className="header__nav">
           <li className="header__item">Home</li>
           <li className="header__item">about</li>
-          <li className="header__item">store</li>
+          <li className="header__item">
+            <Link to="/cart">cart</Link>
+          </li>
           <li className="header__item">featured</li>
           <li className="header__item">blog</li>
           <li className="header__item">contact</li>

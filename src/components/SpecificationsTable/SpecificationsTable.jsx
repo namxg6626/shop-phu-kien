@@ -3,7 +3,6 @@ import "./SpecificationsTable.scss";
 
 export default function SpecificationsTable(props) {
   const { specLabels, specInformations } = props; // [{ jsonProperty: "some customized text" },...]
-  console.log(props);
 
   return (
     <section className="specs-table">
@@ -11,8 +10,8 @@ export default function SpecificationsTable(props) {
       <table border="0" cellSpacing="0">
         <tbody>
           {specLabels.map((spec, id) => {
-            const [key] = Object.keys(spec);
-            const [value] = Object.values(spec);
+            const [jsonProp] = Object.keys(spec);
+            const [label] = Object.values(spec);
 
             return (
               <tr
@@ -20,10 +19,10 @@ export default function SpecificationsTable(props) {
                 className={`specs-table__row--${id % 2 === 0 ? "even" : "odd"}`}
               >
                 <td>
-                  <span>{value}</span>
+                  <span>{label}</span>
                 </td>
                 <td>
-                  <span>{specInformations[key]}</span>
+                  <span>{specInformations[jsonProp]}</span>
                 </td>
               </tr>
             );

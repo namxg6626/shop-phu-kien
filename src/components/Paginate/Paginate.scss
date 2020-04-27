@@ -9,7 +9,6 @@
   position: relative;
 
   @include custom-flex(start, center);
-  flex-basis: 100%;
   height: max-content;
   margin: 1rem 0;
 

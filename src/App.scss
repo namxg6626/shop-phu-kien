@@ -53,12 +53,15 @@
 
     .products {
       order: 1;
+      flex-basis: 100%;
     }
     .paginate {
       order: 2;
+      flex-basis: 100%;
     }
     .categories {
       order: 3;
+      flex-basis: 100%;
     }
   }
 
@@ -108,6 +111,11 @@
     &__container {
       .products {
         order: 1;
+
+        flex-basis: 70%;
+        .product {
+          flex-basis: 49.5%;
+        }
       }
       .paginate {
         order: 3;
@@ -116,17 +124,9 @@
         position: sticky;
         top: calc(1rem + 63px);
         z-index: 0;
-
         order: 2;
-      }
-    }
-    .categories {
-      flex-basis: 29%;
-    }
-    .products {
-      flex-basis: 70%;
-      .product {
-        flex-basis: 49.5%;
+
+        flex-basis: 29%;
       }
     }
   }
@@ -172,7 +172,6 @@
 
   background: gradient(var(--danger), #ff5e2e);
   outline: none;
-  // margin-right: 0.2rem;
 }
 
 @function gradient($bot-color, $top-color) {
@@ -219,8 +218,9 @@
       }
     }
   }
-  &__col {
+  &__row {
     @include custom-flex(start, stretch);
+    margin-bottom: 0.5rem;
 
     button {
       @include btn__single-page();
@@ -233,14 +233,45 @@
       }
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .btn--orange {
       background: gradient(var(--danger), #ff5e2e);
       flex-basis: calc(50% - 0.2rem);
+
+      &:active {
+        background: #ff5e2e;
+      }
     }
 
     .btn--primary {
       background: gradient(var(--primary), #4fa4ff);
       flex-basis: calc(50% - 0.2rem);
+
+      &:active {
+        background: #4fa4ff;
+      }
+    }
+  }
+  &__list {
+    padding: 0.2rem;
+    padding-left: 1rem;
+    width: 100%;
+
+    // background-color: #fdf5d4;
+    // border: 1px solid #f1c40f;
+    border: 1px dashed #ddd;
+    border-radius: 5px;
+
+    list-style: "+ ";
+
+    li {
+      padding: 0.5rem 0;
+
+      font-weight: 500;
+      color: var(--dark);
     }
   }
 }
@@ -256,7 +287,7 @@
     &__img {
       text-align: left;
       img {
-        max-width: 70%;
+        max-width: 90%;
       }
     }
   }
@@ -353,8 +384,8 @@
       font-size: 1.4rem;
     }
     &__additional-info {
-      font-size: 20px;
       flex-basis: 100%;
+      font-size: 20px;
     }
   }
 }
@@ -377,8 +408,10 @@
 .noise:before,
 .body-noise:before {
   content: "";
+
   position: absolute;
   z-index: -1;
+
   top: 0;
   left: 0;
   right: 0;

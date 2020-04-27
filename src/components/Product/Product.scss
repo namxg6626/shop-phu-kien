@@ -7,7 +7,6 @@
 
 .products {
   @include custom-flex(space-between, stretch);
-  flex-basis: 100%;
 
   .product {
     @include custom-flex(space-between, center);
@@ -26,7 +25,7 @@
     background-color: var(--white);
 
     &:hover {
-      box-shadow: var(--bsh-inset--5px);
+      box-shadow: var(--box-shadow-inset--5px);
     }
 
     &__img {
@@ -55,3 +54,21 @@
     }
   }
 }
+
+// @media only screen and (min-width: 800px) {
+//   .products {
+//     flex-basis: 70%;
+//     .product {
+//       flex-basis: 33%;
+//     }
+//   }
+// }
+
+// @media only screen and (min-width: 992px) {
+//   .products {
+//     flex-basis: 75%;
+//     .product {
+//       flex-basis: 24.5%;
+//     }
+//   }
+// }
