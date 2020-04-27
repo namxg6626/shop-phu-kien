@@ -30,6 +30,10 @@
   @include custom-flex(space-between, flex-start);
   width: 100%;
 
+  button {
+    cursor: pointer;
+  }
+
   &__brief {
     flex-basis: 100%;
 
@@ -73,6 +77,8 @@
   @include custom-flex(space-between, stretch);
   position: relative;
   overflow-x: scroll;
+  margin-bottom: 0.3rem;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -197,7 +203,8 @@
 
       border-radius: 3px;
 
-      box-shadow: 2px 2px 2px 1px #ddd;
+      box-shadow: 2px 2px 2px 1px rgb(224, 224, 224);
+      cursor: pointer;
     }
   }
 }

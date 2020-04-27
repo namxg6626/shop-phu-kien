@@ -55,6 +55,14 @@ export default function Cart(props) {
     cart: { productsList: items, idSet },
   } = userContext;
 
+  const cartAmount = items.reduce((sum, { quantity }) => {
+    return (sum += quantity);
+  }, 0);
+
+  const total = items.reduce((sum, product) => {
+    return (sum += product.price * product.quantity);
+  }, 0);
+
   return (
     <main className="main">
       <div className="main__container">
@@ -71,15 +79,21 @@ export default function Cart(props) {
               <tbody>
                 <tr>
                   <td>
-                    <p>Số sản phẩm</p>
+                    <p>Số loại sản phẩm</p>
                   </td>
                   <td>{idSet.length}</td>
                 </tr>
                 <tr>
                   <td>
+                    <p>Số sản phẩm</p>
+                  </td>
+                  <td>{cartAmount}</td>
+                </tr>
+                <tr>
+                  <td>
                     <p>Tổng cộng</p>
                   </td>
-                  <td>11.200.000đ</td>
+                  <td>{total}K đ</td>
                 </tr>
               </tbody>
             </table>
