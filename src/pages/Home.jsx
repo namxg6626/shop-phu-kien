@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import ImpressiveProduct from "../components/ImpressiveProduct";
 import impressionImage from "../assets/impression/impression_product.jpg";

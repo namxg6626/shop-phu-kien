@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 import minusIcon from "../../assets/icons/minus.png";
 import plusIcon from "../../assets/icons/plus.png";
-import { UserContext } from "../../UserContext";
 import "./Cart.scss";
 
 const Item = (props) => {
@@ -15,7 +16,9 @@ const Item = (props) => {
       </div>
       <div className="item__brief">
         <div className="item__sub-brief">
-          <p className="item__name">{name}</p>
+          <p className="item__name">
+            <Link to={`id/${id}`}>{name}</Link>
+          </p>
           <div className="item__additional-info">
             cấu tạo: nhựa, năm sản xuất: 2018
           </div>
@@ -50,10 +53,9 @@ const Item = (props) => {
 };
 
 export default function Cart(props) {
-  const userContext = useContext(UserContext);
   const {
     cart: { productsList: items, idSet },
-  } = userContext;
+  } = useContext(UserContext);
 
   const cartAmount = items.reduce((sum, { quantity }) => {
     return (sum += quantity);

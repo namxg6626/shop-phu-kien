@@ -8,7 +8,7 @@ export default function Single(props) {
   const [product, setProduct] = useState({});
 
   const userContext = useContext(UserContext);
-  const { addProductById, cart } = userContext;
+  const { addProductById } = userContext;
 
   const {
     match: {
