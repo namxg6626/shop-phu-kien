@@ -26,7 +26,7 @@ const Item = (props) => {
         <div className="item__sub-brief">
           <div className="item__price">{price}.000</div>
           <div className="item__count">
-            <button onClick={changeQuantity.bind(undefined, id, -1)}>
+            <button onClick={() => changeQuantity(id, -1)}>
               <img src={minusIcon} alt="bớt" />
             </button>
             <input
@@ -36,16 +36,13 @@ const Item = (props) => {
               value={quantity}
               disabled
             />
-            <button onClick={changeQuantity.bind(undefined, id, 1)}>
+            <button onClick={() => changeQuantity(id, 1)}>
               <img src={plusIcon} alt="thêm" />
             </button>
           </div>
         </div>
       </div>
-      <button
-        className="item__delete-btn"
-        onClick={deleteItem.bind(undefined, id)}
-      >
+      <button className="item__delete-btn" onClick={() => deleteItem(id)}>
         <i className="far fa-trash-alt"></i>
       </button>
     </article>

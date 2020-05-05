@@ -22,14 +22,14 @@ export default function Home(props) {
     },
   ];
 
-  const _API = "http://localhost:4000";
-  const [products, setProducts] = useState([{}]);
+  const _API = "http://localhost:8000";
+  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
     (async function fetchData() {
-      const response = await fetch(`${_API}/shopnguyenxa/page/${page}`);
+      const response = await fetch(`${_API}/products/page/${page}`);
       const json = await response.json();
       setProducts(json.products);
       setMaxPage(json.maxPage);
@@ -48,6 +48,19 @@ export default function Home(props) {
             image={impression.image}
           />
         ))}
+        {/* {(function renderImpressiveProduct() {
+          if (products.length === 0) return;
+          const ImpressiveProducts = [];
+          for (let i = 0; i < 3; i++)
+            ImpressiveProducts.push(
+              <ImpressiveProduct
+                key={products[i].id}
+                title={products[i].name}
+                image={products[i].linkImage}
+              />
+            );
+          return ImpressiveProducts;
+        })()} */}
       </div>
       <div className="main__container">
         <section className="products">
@@ -69,9 +82,6 @@ export default function Home(props) {
         </section>
         <Categories />
         <Paginate maxPage={maxPage} setPage={setPage} page={page} />
-      </div>
-      <div className="main__container">
-        <div className="main__page-selection"></div>
       </div>
     </main>
   );

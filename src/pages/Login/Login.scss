@@ -1,0 +1,13 @@
+.login {
+  min-height: calc(100vh - 320px);
+  margin: 0 auto;
+  & > button {
+    border: none;
+    background: none;
+
+    color: var(--secondary);
+    text-decoration: underline var(--secondary);
+
+    outline: none;
+  }
+}

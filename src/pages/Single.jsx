@@ -4,11 +4,11 @@ import SpecificationsTable from "../components/SpecificationsTable";
 import { UserContext } from "../UserContext";
 
 export default function Single(props) {
-  const _API = "http://localhost:4000";
+  const _API = "http://localhost:8000";
   const [product, setProduct] = useState({});
 
   const userContext = useContext(UserContext);
-  const { addProductById } = userContext;
+  const { addItem } = userContext;
 
   const {
     match: {
@@ -27,14 +27,17 @@ export default function Single(props) {
 
   useEffect(() => {
     (async function fetchData() {
-      const response = await fetch(`${_API}/shopnguyenxa?id=${id}`);
+      const response = await fetch(`${_API}/products/id/${id}`);
       const json = await response.json();
-      const [newState] = json;
-      const { mfgDate } = newState;
+      const { product } = json;
       const regex = /([\d]+)-([\d]+)-([\d]+)/;
-      // convert datetime mysql to dd/mm/yyyy
-      newState.mfgDate = regex.exec(mfgDate).slice(1).reverse().join("/");
-      setProduct(newState);
+      // convert datetime to dd/mm/yyyy
+      product.mfgDate = regex
+        .exec(product.mfgDate)
+        .slice(1)
+        .reverse()
+        .join("/");
+      setProduct(product);
     })();
   }, []);
 
@@ -58,10 +61,7 @@ export default function Single(props) {
             </div>
             <div className="single__row">
               <button className="btn--orange">Mua ngay</button>
-              <button
-                className="btn--primary"
-                onClick={addProductById.bind(undefined, product)}
-              >
+              <button className="btn--primary" onClick={() => addItem(product)}>
                 Thêm vào giỏ
               </button>
             </div>
@@ -71,7 +71,7 @@ export default function Single(props) {
                 <li>Giá cạnh tranh nhất thị trường</li>
                 <li>
                   Miễn phí giao hàng (bán kính 20Km) cho đơn hàng trị giá lớn
-                  hơn 300.000đ
+                  hơn 500.000đ
                 </li>
                 <li>Giao hành trước trả tiền sau (COD)</li>
               </ul>

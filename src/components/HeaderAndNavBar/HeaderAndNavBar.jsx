@@ -20,14 +20,24 @@ export default function HeaderAndNavBar() {
         <input type="checkbox" name="open-nav" id="open-nav" />
 
         <ul className="header__nav">
-          <li className="header__item">Home</li>
-          <li className="header__item">about</li>
+          <li className="header__item">
+            <Link to="/">Home</Link>
+          </li>
           <li className="header__item">
             <Link to="/cart">cart</Link>
           </li>
-          <li className="header__item">featured</li>
-          <li className="header__item">blog</li>
-          <li className="header__item">contact</li>
+          <li className="header__item">
+            <Link to="/login">Login/Register</Link>
+          </li>
+          <li className="header__item">
+            <a href="#1">Featured</a>
+          </li>
+          <li className="header__item">
+            <a href="#1">Blog</a>
+          </li>
+          <li className="header__item">
+            <a href="#1">contact</a>
+          </li>
         </ul>
 
         <div className="header__toggle-nav" onClick={toggleNav}>

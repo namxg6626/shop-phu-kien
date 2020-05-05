@@ -1,0 +1,54 @@
+.form {
+  --border: 1px solid #cdcdcd;
+
+  padding: 1rem;
+
+  color: #555;
+
+  border: var(--border);
+  border-radius: 5px;
+
+  &__feild {
+    margin-bottom: 0.5rem;
+
+    label {
+      display: block;
+
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 0.7rem;
+      margin-top: 0.25rem;
+
+      border: var(--border);
+      border-radius: 5px;
+
+      outline: none;
+    }
+  }
+
+  button {
+    --primary-deeper: rgb(0, 78, 167);
+
+    padding: 0.4rem;
+    width: 100%;
+
+    font-weight: 500;
+    color: white;
+
+    border: 1px solid var(--primary-deeper);
+    border-width: 1px 1px 3px 1px;
+    border-radius: 5px;
+    background-color: var(--primary);
+
+    outline: none;
+
+    &:active {
+      background-color: var(--primary-deeper);
+      border-color: darkblue;
+      outline: none;
+    }
+  }
+}

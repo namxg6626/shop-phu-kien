@@ -3,12 +3,23 @@ import React, { useState } from "react";
 export const UserContext = React.createContext();
 
 export function UserProvider(props) {
-  const [cart, setCart] = useState({
+  // initialize cart
+  const saveCartToLocalStorage = (cartObj) => {
+    localStorage.setItem("cart", JSON.stringify(cartObj));
+  };
+
+  const getCartFromLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("cart"));
+  };
+
+  const localStorageCart = getCartFromLocalStorage() || {
     idSet: [],
     productsList: [],
-  });
+  };
+  const [cart, setCart] = useState(localStorageCart);
+  // end ===================
 
-  const addProductById = (product) => {
+  const addItem = (product) => {
     if (cart.idSet.includes(product.id)) {
       const msg =
         "Sản phẩm đã có trong giỏ hàng\nHãy thay đổi số lượng ở trong giỏ hàng";
@@ -16,10 +27,13 @@ export function UserProvider(props) {
     } else {
       product.quantity = 1;
 
-      setCart({
+      const newCart = {
         idSet: [...cart.idSet, product.id],
         productsList: [...cart.productsList, product],
-      });
+      };
+
+      setCart(newCart);
+      saveCartToLocalStorage(newCart);
     }
   };
 
@@ -29,40 +43,42 @@ export function UserProvider(props) {
         if (product.quantity <= 1 && number === -1) return;
 
         product.quantity += number;
-
         const newProductsList = cart.productsList.map((inCartProduct) => {
           if (id === inCartProduct.id) return product;
           return inCartProduct;
         });
 
-        setCart({
+        const newCart = {
           idSet: cart.idSet,
           productsList: newProductsList,
-        });
+        };
 
+        setCart(newCart);
+        saveCartToLocalStorage(newCart);
         return;
       }
   };
 
   const deleteItem = (id) => {
     const newProductsList = cart.productsList.filter((inCartProduct) => {
-      if (inCartProduct.id !== id) return inCartProduct;
+      return inCartProduct.id !== id;
     });
 
     const newIdSet = cart.idSet.filter((x) => {
-      if (x !== id) return x;
+      return x !== id;
     });
 
-    setCart({
+    const newCart = {
       idSet: newIdSet,
       productsList: newProductsList,
-    });
+    };
+
+    setCart(newCart);
+    saveCartToLocalStorage(newCart);
   };
 
   return (
-    <UserContext.Provider
-      value={{ cart, addProductById, changeQuantity, deleteItem }}
-    >
+    <UserContext.Provider value={{ cart, addItem, changeQuantity, deleteItem }}>
       {props.children}
     </UserContext.Provider>
   );
