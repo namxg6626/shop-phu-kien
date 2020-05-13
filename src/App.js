@@ -12,14 +12,27 @@ import { Switch, Route } from "react-router-dom";
 function App() {
   return (
     <UserProvider>
-      <HeaderAndNavBar />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/id/:id" component={Single} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/">
+          <HeaderAndNavBar />
+          <Home />
+          <Footer />
+        </Route>
+        <Route exact path="/id/:id">
+          <HeaderAndNavBar />
+          <Single />
+          <Footer />
+        </Route>
+        <Route exact path="/cart">
+          <HeaderAndNavBar />
+          <Cart />
+          <Footer />
+        </Route>
+        <Route exact path="/login">
+          <HeaderAndNavBar />
+          <Login />
+        </Route>
       </Switch>
-      <Footer />
     </UserProvider>
   );
 }

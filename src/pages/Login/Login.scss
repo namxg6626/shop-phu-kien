@@ -1,12 +1,18 @@
 .login {
-  min-height: calc(100vh - 320px);
   margin: 0 auto;
-  & > button {
-    border: none;
-    background: none;
+  width: 100%;
+  max-width: 576px;
+  position: relative;
+  top: 5rem;
 
-    color: var(--secondary);
-    text-decoration: underline var(--secondary);
+  & > button {
+    // max-width: 3rem;
+
+    border: none;
+
+    background: none;
+    color: #1a73e8;
+    text-decoration: underline #1a73e8;
 
     outline: none;
   }

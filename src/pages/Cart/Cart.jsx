@@ -29,13 +29,7 @@ const Item = (props) => {
             <button onClick={() => changeQuantity(id, -1)}>
               <img src={minusIcon} alt="bớt" />
             </button>
-            <input
-              type="text"
-              name="count"
-              id="count"
-              value={quantity}
-              disabled
-            />
+            <input type="text" name="count" value={quantity} disabled />
             <button onClick={() => changeQuantity(id, 1)}>
               <img src={plusIcon} alt="thêm" />
             </button>
@@ -50,9 +44,15 @@ const Item = (props) => {
 };
 
 export default function Cart(props) {
+  const { tokens } = useContext(UserContext);
+  const _API = "http://localhost:8000";
+
   const {
     cart: { productsList: items, idSet },
+    refreshTokens,
   } = useContext(UserContext);
+
+  console.log(items);
 
   const cartAmount = items.reduce((sum, { quantity }) => {
     return (sum += quantity);
@@ -61,6 +61,25 @@ export default function Cart(props) {
   const total = items.reduce((sum, product) => {
     return (sum += product.price * product.quantity);
   }, 0);
+
+  const syncCart = async () => {
+    const res = await fetch(`${_API}/create-cart`, {
+      method: "POST",
+      body: JSON.stringify({
+        token: tokens.token,
+        refreshToken: tokens.refreshToken,
+        items: items,
+        total: total,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const json = await res.json();
+    if (json.message === "token expired") {
+      console.log(json);
+    }
+  };
 
   return (
     <main className="main">
@@ -98,7 +117,9 @@ export default function Cart(props) {
             </table>
             <div className="cart__container">
               <button className="cart__btn">Đặt hàng ngay</button>
-              <button className="cart__btn--primary">Tiếp tục mua hàng</button>
+              <button className="cart__btn--primary" onClick={syncCart}>
+                Đồng bộ giỏ hàng
+              </button>
             </div>
           </div>
         </section>

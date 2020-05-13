@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Form from "../../components/Form";
+import { UserContext } from "../../UserContext";
+import Logo from "../../assets/logo/logo.png";
 import "./Login.scss";
-import axios from "axios";
 
 export default function Login() {
+  // config
   const _API = "http://localhost:8000";
 
   const loginFieldConfig = {
@@ -20,32 +23,68 @@ export default function Login() {
     action: `${_API}/register`,
     feildSet: [
       { feildName: "email", type: "email", required: true },
+      { feildName: "phone-number", type: "text", required: true },
       { feildName: "password", type: "password", required: true },
-      { feildName: "confirm-password", type: "password", required: true },
+      // { feildName: "confirm-password", type: "password", required: true },
     ],
   };
 
-  const [hasAnAccount, setHasAnAccount] = useState(true);
-  const [feilds, setFeilds] = useState(loginFieldConfig);
-  const [message, setMessage] = useState("");
+  // initial hooks
+  const [hasAnAccount, setHasAnAccount] = useState(() => true);
+  const [feilds, setFeilds] = useState(() => loginFieldConfig);
+  const [message, setMessage] = useState(() => "");
+  const { setTokens } = useContext(UserContext);
+  const history = useHistory();
 
+  // initial effect
   useEffect(() => {
     if (hasAnAccount) setFeilds(loginFieldConfig);
     else setFeilds(registerFeildConfig);
   }, [hasAnAccount]);
 
-  const toggleMode = () => {
-    setHasAnAccount(!hasAnAccount);
+  // inittial function
+  const postRequest = (route, json) => {
+    return new Promise((res, rej) => {
+      fetch(`${_API}/${route}`, {
+        method: "POST",
+        body: JSON.stringify(json),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((json) => res(json))
+        .catch((err) => rej(err));
+    });
   };
 
-  const post = (route, json) => {
-    axios({
-      url: `${_API}/${route}`,
-      method: "POST",
-      data: json,
-      withCredentials: true,
-      headers: { crossDomain: true, "Content-Type": "application/json" },
-    });
+  const login = async (userdata) => {
+    try {
+      const response = await postRequest("login", userdata);
+      if (response.status === 404) setMessage("Không tồn tại email này");
+      else {
+        setTokens(response);
+        history.push("/"); // redirect to homepage
+      }
+    } catch (error) {
+      setMessage("Không thể đăng nhập");
+    }
+  };
+
+  const register = async (userdata) => {
+    try {
+      const response = await postRequest("register", userdata);
+      console.log(response);
+
+      if (response.status === 201) setMessage("Đăng ký thành công");
+      if (response.status === 400)
+        setMessage(
+          "Đã tồn tại email này hoặc thông tin nhập vào không chính xác"
+        );
+    } catch (error) {
+      setMessage("Không thể đăng kí");
+      console.error(error);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -57,25 +96,28 @@ export default function Login() {
       password: password.value,
     };
 
-    if (hasAnAccount) post("login", json);
+    if (hasAnAccount) login(json);
     else {
-      if (password.value !== form["confirm-password"].value) {
-        setMessage("Xác nhận mật khẩu không khớp");
-        return;
-      }
-
-      post("register", {
-        ...json,
-        "confirm-password": form["confirm-password"].value,
-      });
+      json.phoneNumber = form["phone-number"].value;
+      register(json);
     }
+  };
+
+  const toggleMode = () => {
+    setHasAnAccount(!hasAnAccount);
+    setMessage("");
+    document.form.reset();
   };
 
   return (
     <main className="main">
       <div className="main__container">
         <section className="login">
-          <Form feildConfig={feilds} handleSubmit={handleSubmit} />
+          <Form
+            feildConfig={feilds}
+            handleSubmit={handleSubmit}
+            title={hasAnAccount ? "Đăng nhập" : "Đăng ký"}
+          />
           <button onClick={toggleMode}>
             {hasAnAccount ? "Chưa có tài khoản?" : "Đã có tài khoản"}
           </button>

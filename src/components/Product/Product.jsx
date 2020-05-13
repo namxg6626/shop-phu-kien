@@ -13,7 +13,7 @@ export default function Product(props) {
         style={{ backgroundImage: `url(${linkImage})` }}
       />
       <p className="product__name">
-        <Link to={`id/${id}`}>{name}</Link>
+        <Link to={`/id/${id}`}>{name}</Link>
       </p>
       <p className="product__price">{price}.000đ</p>
     </article>

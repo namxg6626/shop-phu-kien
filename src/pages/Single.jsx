@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import Categories from "../components/Categories";
 import SpecificationsTable from "../components/SpecificationsTable";
 import { UserContext } from "../UserContext";
@@ -10,11 +11,7 @@ export default function Single(props) {
   const userContext = useContext(UserContext);
   const { addItem } = userContext;
 
-  const {
-    match: {
-      params: { id },
-    },
-  } = props;
+  const { id } = useParams();
 
   const specLabels = [
     { name: "Tên sản phẩm" },

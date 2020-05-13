@@ -18,10 +18,11 @@ const Input = (props) => {
 };
 
 export default function Form(props) {
-  const { feildConfig, handleSubmit } = props;
+  const { feildConfig, handleSubmit, title } = props;
   const { method, action } = feildConfig;
   return (
     <form className="form" method={method} action={action} name="form">
+      <h3>{title}</h3>
       {feildConfig.feildSet.map((x, id) => (
         <Input
           key={id}

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export const UserContext = React.createContext();
 
 export function UserProvider(props) {
+  const _API = "http://localhost:8000";
+
   // initialize cart
   const saveCartToLocalStorage = (cartObj) => {
     localStorage.setItem("cart", JSON.stringify(cartObj));
@@ -16,8 +19,30 @@ export function UserProvider(props) {
     idSet: [],
     productsList: [],
   };
-  const [cart, setCart] = useState(localStorageCart);
+  const [cart, setCart] = useState(() => localStorageCart);
+  const [tokens, setTokens] = useState(() => {
+    return {
+      token: "aaa",
+      refreshToken: "aaa",
+    };
+  });
   // end ===================
+
+  const refreshTokens = async () => {
+    const res = await fetch(`${_API}/refresh-token`, {
+      method: "POST",
+      body: JSON.stringify(tokens),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
+    // continue here ============================================
+    // refresh token when the access token is expired
+    const json = await res.json();
+    if (json.message === "refresh token expired") {
+    }
+  };
 
   const addItem = (product) => {
     if (cart.idSet.includes(product.id)) {
@@ -78,7 +103,17 @@ export function UserProvider(props) {
   };
 
   return (
-    <UserContext.Provider value={{ cart, addItem, changeQuantity, deleteItem }}>
+    <UserContext.Provider
+      value={{
+        cart,
+        addItem,
+        changeQuantity,
+        deleteItem,
+        tokens,
+        setTokens,
+        refreshTokens,
+      }}
+    >
       {props.children}
     </UserContext.Provider>
   );
