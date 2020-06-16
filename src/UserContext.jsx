@@ -5,6 +5,7 @@ export const UserContext = React.createContext();
 
 export function UserProvider(props) {
   const _API = "http://localhost:8000";
+  const history = useHistory();
 
   // initialize cart
   const saveCartToLocalStorage = (cartObj) => {
@@ -37,11 +38,9 @@ export function UserProvider(props) {
       },
     });
 
-    // continue here ============================================
     // refresh token when the access token is expired
     const json = await res.json();
-    if (json.message === "refresh token expired") {
-    }
+    return json;
   };
 
   const addItem = (product) => {

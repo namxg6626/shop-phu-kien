@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import minusIcon from "../../assets/icons/minus.png";
 import plusIcon from "../../assets/icons/plus.png";
@@ -46,10 +46,12 @@ const Item = (props) => {
 export default function Cart(props) {
   const { tokens } = useContext(UserContext);
   const _API = "http://localhost:8000";
+  const history = useHistory();
 
   const {
     cart: { productsList: items, idSet },
     refreshTokens,
+    setTokens,
   } = useContext(UserContext);
 
   console.log(items);
@@ -75,9 +77,22 @@ export default function Cart(props) {
         "Content-type": "application/json",
       },
     });
+
     const json = await res.json();
-    if (json.message === "token expired") {
-      console.log(json);
+    console.log(json);
+    try {
+      if (json.message === "token expired") {
+        const json = await refreshTokens().then((result) =>
+          console.log(result)
+        );
+        if (json.message === "refresh token expired") history.push("/login");
+        else {
+          setTokens(json);
+          syncCart();
+        }
+      }
+    } catch (error) {
+      console.log("refresh success");
     }
   };
 
