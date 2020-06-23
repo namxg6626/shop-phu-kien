@@ -62,9 +62,10 @@ export default function Login() {
     try {
       const response = await postRequest("login", userdata);
       if (response.status === 404) setMessage("Không tồn tại email này");
+      else if (response.status === 403) setMessage("Sai email hoặc mật khẩu");
       else {
         setTokens(response);
-        history.push("/"); // redirect to homepage
+        history.push("/");
       }
     } catch (error) {
       setMessage("Không thể đăng nhập");

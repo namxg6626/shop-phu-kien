@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 export const UserContext = React.createContext();
 
 export function UserProvider(props) {
   const _API = "http://localhost:8000";
-  const history = useHistory();
 
   // initialize cart
   const saveCartToLocalStorage = (cartObj) => {
@@ -101,6 +99,16 @@ export function UserProvider(props) {
     saveCartToLocalStorage(newCart);
   };
 
+  const resetCart = () => {
+    const emptyCart = {
+      idSet: [],
+      productsList: [],
+    };
+
+    saveCartToLocalStorage(emptyCart);
+    setCart(emptyCart);
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -111,6 +119,7 @@ export function UserProvider(props) {
         tokens,
         setTokens,
         refreshTokens,
+        resetCart,
       }}
     >
       {props.children}

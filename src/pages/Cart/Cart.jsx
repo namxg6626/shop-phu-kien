@@ -44,7 +44,7 @@ const Item = (props) => {
 };
 
 export default function Cart(props) {
-  const { tokens } = useContext(UserContext);
+  const { tokens, resetCart } = useContext(UserContext);
   const _API = "http://localhost:8000";
   const history = useHistory();
 
@@ -65,35 +65,33 @@ export default function Cart(props) {
   }, 0);
 
   const syncCart = async () => {
-    const res = await fetch(`${_API}/create-cart`, {
-      method: "POST",
-      body: JSON.stringify({
-        token: tokens.token,
-        refreshToken: tokens.refreshToken,
-        items: items,
-        total: total,
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+    const makeRequest = () =>
+      fetch(`${_API}/create-cart`, {
+        method: "POST",
+        body: JSON.stringify({
+          token: tokens.token,
+          refreshToken: tokens.refreshToken,
+          items: items,
+          total: total,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
 
-    const json = await res.json();
+    const json = await (await makeRequest()).json();
     console.log(json);
-    try {
-      if (json.message === "token expired") {
-        const json = await refreshTokens().then((result) =>
-          console.log(result)
-        );
-        if (json.message === "refresh token expired") history.push("/login");
-        else {
-          setTokens(json);
-          syncCart();
-        }
+    if (json.message === "token expired") {
+      const refreshTokenResult = await refreshTokens();
+      console.log(refreshTokenResult);
+      if (refreshTokenResult.message === "refresh token expired")
+        history.push("/login");
+      else {
+        await setTokens(refreshTokenResult);
+        await makeRequest();
+        resetCart();
       }
-    } catch (error) {
-      console.log("refresh success");
-    }
+    } else resetCart();
   };
 
   return (
@@ -131,10 +129,10 @@ export default function Cart(props) {
               </tbody>
             </table>
             <div className="cart__container">
-              <button className="cart__btn">Đặt hàng ngay</button>
-              <button className="cart__btn--primary" onClick={syncCart}>
-                Đồng bộ giỏ hàng
+              <button className="cart__btn" onClick={syncCart}>
+                Đặt hàng ngay
               </button>
+              <button className="cart__btn--primary">Đồng bộ giỏ hàng</button>
             </div>
           </div>
         </section>
