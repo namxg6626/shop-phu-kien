@@ -51,7 +51,7 @@ export default function Footer() {
         <img src={viettelpay} alt="viettelpay" />
         <img src={vtcpay} alt="vtcpay" />
         <hr />
-        <i>Powered by me</i>
+        <i>Powered by Group 1</i>
       </div>
     </footer>
   );

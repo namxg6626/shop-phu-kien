@@ -1,5 +1,3 @@
-# Continue at UserContext.jsx, line 43
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -90,8 +90,12 @@ export default function Cart(props) {
         await setTokens(refreshTokenResult);
         await makeRequest();
         resetCart();
+        alert("Đặt hàng thành công!");
       }
-    } else resetCart();
+    } else {
+      resetCart();
+      alert("Đặt hàng thành công!");
+    }
   };
 
   return (
@@ -132,7 +136,7 @@ export default function Cart(props) {
               <button className="cart__btn" onClick={syncCart}>
                 Đặt hàng ngay
               </button>
-              <button className="cart__btn--primary">Đồng bộ giỏ hàng</button>
+              {/* <button className="cart__btn--primary">Đồng bộ giỏ hàng</button> */}
             </div>
           </div>
         </section>
