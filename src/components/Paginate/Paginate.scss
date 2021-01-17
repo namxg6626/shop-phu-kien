@@ -15,7 +15,7 @@
   @mixin paginate-element {
     width: 1.5rem;
     height: 1.5rem;
-    margin: 0 0.3rem;
+    margin: 0 5px;
 
     text-align: center;
     line-height: 1.5rem;
@@ -29,13 +29,27 @@
     }
   }
 
+  &__container {
+    position: relative;
+
+    padding: 0 5px;
+    height: 24px;
+    width: 112px;
+
+    background: #eee;
+    border-radius: 16px;
+
+    overflow-x: hidden;
+  }
+
   &__view {
+    position: absolute;
+    top: 0;
+
+    display: flex;
+
     background: #eee;
     border-radius: 1.5rem;
-
-    & > div {
-      display: inline-block;
-    }
   }
 
   &__selection {

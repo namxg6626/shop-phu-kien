@@ -12,11 +12,11 @@ export default function Footer() {
           <ul className="footer__list">
             <li className="footer__item">
               <i className="fab fa-facebook-square" aria-hidden="true"></i>
-              Facebook: Lê Văn Nam
+              Facebook: Phạm Minh Tụ
             </li>
             <li className="footer__item">
               <i className="fas fa-phone-square-alt" aria-hidden="true"></i>Điện
-              thoại: 0985784219
+              thoại: 0971561668
             </li>
             <li className="footer__item">
               <i className="fas fa-map-marked-alt" aria-hidden="true"></i>Địa
